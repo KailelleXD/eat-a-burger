@@ -1,4 +1,4 @@
-# Project Title
+# EAT-A-BURGER
 // This project was created to practice the implementation of CRUD operations in conjunction with express, express-handlebars, and mysql packages.
 
 ## Motivation
