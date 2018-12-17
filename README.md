@@ -30,7 +30,29 @@ I found handlebars and my starting glimpse into software engineering achitecture
 
 ## Code Example
 ```
-[Code example to be found here]]
+  $(".create-form").on("submit", function (event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    console.log("Button has been clicked!");
+
+    var newBurger = {
+      name: $("#burger-info").val().trim(),
+      devoured: 0
+    };
+
+    // Send the POST request.
+    $.ajax("/api/burger", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function () {
+        console.log("created new burger");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
 ```
 
 ## How to Use
