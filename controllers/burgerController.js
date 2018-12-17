@@ -7,12 +7,25 @@ var burger = require("../models/burger.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function (req, res) {
+  console.log("Route FOUND '/' ");
+
   burger.all(function (data) {
     var hbsObject = {
       burger: data
     };
     console.log(hbsObject);
     res.render("index", hbsObject);
+  });
+});
+
+router.post("/api/burger", function(req, res) {
+  burger.create([
+    "burger_name", "devoured"
+  ], [
+    req.body.name, req.body.devoured
+  ], function(result) {
+    // Send back the ID of the new burger
+    res.json({ id: result.insertId });
   });
 });
 
@@ -31,6 +44,15 @@ router.put("/api/burgers/:id", function (req, res) {
     } else {
       res.status(200).end();
     }
+  });
+});
+
+router.delete("/api/burger/:id", function(req, res) {
+  burger.delete(req.params.id, function(result) {
+    if (result.affectedRows === 0) {
+      return res.status(404).end()
+    }
+    res.status(200).end();
   });
 });
 
